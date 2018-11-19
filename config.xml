@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:mfp="http://www.ibm.com/mobilefirst/cordova-plugin-mfp">
     <name>mf-starter-ionic</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -82,4 +82,46 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-mfp" spec="8.0.2018111408" />
+    <mfp:android>
+        <mfp:sdkChecksum>0</mfp:sdkChecksum>
+        <mfp:appChecksum>0</mfp:appChecksum>
+        <mfp:security>
+            <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+        </mfp:security>
+    </mfp:android>
+    <mfp:ios>
+        <mfp:sdkChecksum>2296049438</mfp:sdkChecksum>
+        <mfp:appChecksum>0</mfp:appChecksum>
+        <mfp:security>
+            <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+        </mfp:security>
+    </mfp:ios>
+    <mfp:windows>
+        <mfp:windows8>
+            <mfp:sdkChecksum>0</mfp:sdkChecksum>
+            <mfp:security>
+                <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+            </mfp:security>
+        </mfp:windows8>
+        <mfp:windowsphone8>
+            <mfp:sdkChecksum>0</mfp:sdkChecksum>
+            <mfp:security>
+                <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+            </mfp:security>
+        </mfp:windowsphone8>
+        <mfp:windows10>
+            <mfp:sdkChecksum>0</mfp:sdkChecksum>
+            <mfp:security>
+                <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
+            </mfp:security>
+        </mfp:windows10>
+        <mfp:appChecksum>0</mfp:appChecksum>
+    </mfp:windows>
+    <mfp:platformVersion>8.0.0.00-20181113-120031</mfp:platformVersion>
+    <mfp:clientCustomInit enabled="false" />
+    <mfp:server runtime="mfp" url="http://10.0.0.1:9080" />
+    <mfp:directUpdateAuthenticityPublicKey />
+    <mfp:languagePreferences>en</mfp:languagePreferences>
+    <engine name="ios" spec="4.5.5" />
 </widget>
