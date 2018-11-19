@@ -5,7 +5,7 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page2">
+<ion-content padding id="login">
   <form id="login-form">
     <div class="spacer" style="height:40px;" id="login-spacer"></div>
     <ion-list id="login-list">
@@ -23,7 +23,7 @@
       </ion-item>
     </ion-list>
     <div class="spacer" style="height:40px;" id="login-spacer1"></div>
-    <button id="login-button" ion-button color="stable" block>
+    <button id="login-button" ion-button  (click)="login()" color="stable" block>
       Log in
     </button>
   </form>
