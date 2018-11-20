@@ -24,9 +24,9 @@ export class LoginPage {
     WLAuthorizationManager.login(this.securityCheck, credentials).then(
       () => {
         console.log('-->  login(): Success ');
-        this.app.getActiveNav().push(HomePage);
+        this.app.getRootNav().setRoot(HomePage);
       }, (error) => {
-        console.log('-->  login(): Failure ', error);
+        console.log('-->  login(): Failure ', JSON.stringify(error));
         this.updateResult('Invalid Credentials, Try after sometime.');
       }
     )
