@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { App } from 'ionic-angular';
 import { HomePage } from '../home/home'
 
 @Component({
@@ -8,17 +8,23 @@ import { HomePage } from '../home/home'
 })
 export class LoginPage {
 
-  private securityCheck = "Userlogin"
+  private securityCheck = "UserLogin"
   public result: string;
+  username: string;
+  password: string;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public app: App, private zone: NgZone) {
   }
 
-  login(credentials : Object) {
+  login() {
+    var credentials = {
+      username: this.username,
+      password: this.password
+    };
     WLAuthorizationManager.login(this.securityCheck, credentials).then(
       () => {
         console.log('-->  login(): Success ');
-        this.navCtrl.push(HomePage);
+        this.app.getActiveNav().push(HomePage);
       }, (error) => {
         console.log('-->  login(): Failure ', error);
         this.updateResult('Invalid Credentials, Try after sometime.');
@@ -27,7 +33,12 @@ export class LoginPage {
   }
 
   public updateResult(msg: string) {
-    this.result = msg;
+    this.zone.run(() => {
+      this.result = msg;
+    });
+    // Clear text boxes
+    this.username = "";
+    this.password = "";
   }
   
 }

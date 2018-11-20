@@ -1,4 +1,4 @@
-import { Component, Renderer, ViewChild } from '@angular/core';
+import { Component, Renderer } from '@angular/core';
 import { Platform, App, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
