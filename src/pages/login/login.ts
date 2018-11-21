@@ -1,19 +1,27 @@
 import { Component, NgZone } from '@angular/core';
-import { App } from 'ionic-angular';
+import { App, Events } from 'ionic-angular';
 import { HomePage } from '../home/home'
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
+
 export class LoginPage {
 
-  private securityCheck = "UserLogin"
+  private securityCheck = 'UserLogin';
+  private UserLoginChallengeHandler: WL.Client.SecurityCheckChallengeHandler; 
+  private isChallenged = false;
   public result: string;
   username: string;
   password: string;
 
-  constructor(public app: App, private zone: NgZone) {
+  constructor(public app: App, private zone: NgZone, public events: Events) {
+    events.subscribe('mfp:challenge', (msg , challengeHandler) => {
+      this.isChallenged = true;
+      this.UserLoginChallengeHandler = challengeHandler;
+      this.updateResult(msg);
+    });
   }
 
   login() {
@@ -21,24 +29,28 @@ export class LoginPage {
       username: this.username,
       password: this.password
     };
-    WLAuthorizationManager.login(this.securityCheck, credentials).then(
-      () => {
-        console.log('-->  login(): Success ');
-        this.app.getRootNav().setRoot(HomePage);
-      }, (error) => {
-        console.log('-->  login(): Failure ', JSON.stringify(error));
-        this.updateResult('Invalid Credentials, Try after sometime.');
-      }
-    )
+    if (!this.isChallenged) {
+      WLAuthorizationManager.login(this.securityCheck, credentials).then(
+        () => {
+          console.log('-->  login(): Success ');
+          this.app.getRootNav().setRoot(HomePage);
+        }, (error) => {
+          console.log('-->  login(): Failure ', JSON.stringify(error));
+          this.updateResult('Login Failure : ' + error.errorMsg);
+        });
+    } else {
+      this.UserLoginChallengeHandler.submitChallengeAnswer(credentials);
+      this.isChallenged = false;
+    }
   }
 
   public updateResult(msg: string) {
     this.zone.run(() => {
       this.result = msg;
+      // Clear text boxes
+      this.username = "";
+      this.password = "";
     });
-    // Clear text boxes
-    this.username = "";
-    this.password = "";
   }
   
 }

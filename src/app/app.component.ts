@@ -1,5 +1,5 @@
 import { Component, Renderer } from '@angular/core';
-import { Platform, App, AlertController } from 'ionic-angular';
+import { Platform, App, AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -10,10 +10,9 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   rootPage:any = LoginPage;
+  public UserLoginChallengeHandler: WL.Client.SecurityCheckChallengeHandler; 
 
-  private UserLoginChallengeHandler: any
-
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, renderer: Renderer, public appCtrl: App, public alertCtrl: AlertController, private _LoginPage: LoginPage) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, renderer: Renderer, public appCtrl: App, public alertCtrl: AlertController, public events: Events) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -46,9 +45,9 @@ export class MyApp {
     if (response.errorMsg) {
       var msg = response.errorMsg + ' <br> Remaining attempts: ' + response.remainingAttempts;
       console.log('--> displayLoginChallenge ERROR: ' + msg);
-      this._LoginPage.updateResult(msg);
+      this.events.publish('mfp:challenge', msg, this.UserLoginChallengeHandler);
     } else {
-      this._LoginPage.updateResult('Invalid Credentials');
+      this.events.publish('mfp:challenge', 'Invalid Credentials', this.UserLoginChallengeHandler);
     }
   }
 }
